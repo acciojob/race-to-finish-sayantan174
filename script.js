@@ -1,31 +1,27 @@
-let promise1 = new Promise(resolve=>{
-	setTimeout(()=>{
-		resolve();
-	},1000)
-});
-let promise2 = new Promise(resolve=>{
-	setTimeout(()=>{
-		resolve();
-	},2000)
-});
-let promise3 = new Promise(resolve=>{
-	setTimeout(()=>{
-		resolve();
-	},3000)
-});
-let promise4 = new Promise(resolve=>{
-	setTimeout(()=>{
-		resolve();
-	},4000)
-});
-let promise5 = new Promise(resolve=>{
-	setTimeout(()=>{
-		resolve();
-	},5000)
-});
-window.promises = [promise1,promise2,promise3,promise4,promise5];
-const output = document.getElementById("output");
-output.innerText=Promise.any(promises);
+window.promises = [];
+
+for (let i = 0; i < 5; i++) {
+  const promise = new Promise((resolve) => {
+    const randomTime = Math.floor(Math.random() * 5) + 1;
+    setTimeout(() => {
+      resolve(`Promise ${i + 1} resolved after ${randomTime} second(s).`);
+    }, randomTime * 1000);
+  });
+  
+  promises.push(promise);
+}
+
+Promise.any(promises)
+  .then((result) => {
+    const outputDiv = document.getElementById('output');
+    outputDiv.textContent = result;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+
+
+
 
 // Do not change the code above this
 // add your promises to the array `promises`
